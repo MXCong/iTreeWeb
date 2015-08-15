@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-7-6 10:18:30 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.iTree.iTreeCMS.model.TheTeacherWrote" table="THETEACHERWROTE">
+        <id name="ContentID" type="int">
+            <column name="CONTENTID" />
+            <generator class="assigned" />
+        </id>
+        <property name="TeacherContent" type="java.lang.String">
+            <column name="TEACHERCONTENT" />
+        </property>
+        <property name="UserID" type="java.lang.String">
+            <column name="USERID" />
+        </property>
+    </class>
+</hibernate-mapping>
