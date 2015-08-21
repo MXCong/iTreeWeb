@@ -20,7 +20,7 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 		return sessionfaction;
 	}
 
-	private Session getCurrentSession() {// 返回自制函数
+	public Session getCurrentSession() {// 返回自制函数
 		return this.sessionfaction.getCurrentSession();
 	}
 
@@ -66,7 +66,7 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 	}
 
 	@Override
-	public void updata(T o) {
+	public void update(T o) {
 		this.getCurrentSession().update(o);
 	}
 
@@ -112,9 +112,9 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 	}
 
 	@Override
-	public Long count(String hql) {
+	public Long count(String table) {
+		String hql = "select count(tb) from " + table + "tb";
 		Query q = this.getCurrentSession().createQuery(hql);
-
 		return (Long) q.uniqueResult();
 	}
 
@@ -129,5 +129,44 @@ public class BaseDaoImpl<T> implements BaseDaoI<T> {
 		return (Long) q.uniqueResult();
 	}
 
-	
+	@Override
+	public List<T> findAll(String table) {
+		// TODO Auto-generated method stub
+		String hql = "from " + table;
+		Query q = this.getCurrentSession().createQuery(hql);
+		// q.setParameter(0, o);
+		return q.list();
+	}
+
+
+	@Override
+	public T get(String hql, Map<String, Object> params) {
+		Query q = this.getCurrentSession().createQuery(hql);
+		if (params != null & !params.isEmpty()) {
+			for (String key : params.keySet()) {
+				q.setParameter(key, params.get(key));
+			}
+		}
+		List<T> list = q.list();
+		if (list != null & list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+
+	}
+
+	@Override
+	public T findById(Class<T> class1, String id) {
+
+		return (T) this.getCurrentSession().get(class1, id);
+
+	}
+
+	@Override
+	public T findById(Class<T> class1, int id) {
+
+		return (T) this.getCurrentSession().load(class1, id);
+
+	}
+
 }

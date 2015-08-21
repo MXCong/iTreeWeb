@@ -2,11 +2,11 @@ package com.iTree.service;
 
 import java.util.List;
 
-import com.iTree.model.Tmenu;
-import com.iTree.pageModel.Menu;
+import com.iTree.model.Menu;
+import com.iTree.pageModel.MenuPage;
 
 
 public interface MenuServiceI  {
 
-	public List<Menu> getTree();
+	public List<MenuPage> getTree();
 }

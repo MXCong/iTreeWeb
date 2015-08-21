@@ -34,7 +34,18 @@ public class UserServiceImpl implements UserServiceI {
 	
 	private UserDaoI userDao;	
 	
+//	private BaseDaoI<TStudent> tstudentDao;
 	
+	
+	//测试另一种自动注入方式
+//	public BaseDaoI<TStudent> getTstudentDao() {
+//		return tstudentDao;
+//	}
+//	
+//	@Autowired
+//	public void setTstudentDao(BaseDaoI<TStudent> tstudentDao) {
+//		this.tstudentDao = tstudentDao;
+//	}
 
 	/*public TstudentDaoI getTstudentDao() {
 		return tstudentDao;
@@ -68,7 +79,12 @@ public class UserServiceImpl implements UserServiceI {
 		return null;
 	}
 	
-	
+	/*@Override
+	public Serializable saveTStudent(TStudent student){
+		tstudentDao.save(student);
+		return null;
+	}
+
 	@Override
 	public User login(User user) {
 		// String hql =
@@ -82,6 +98,6 @@ public class UserServiceImpl implements UserServiceI {
 			return user;
 		}
 		return null;
-	}
+	}*/
 
 }

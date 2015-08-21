@@ -7,38 +7,43 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iTree.dao.TmenuDaoI;
-import com.iTree.model.Tmenu;
-import com.iTree.pageModel.Menu;
+import com.iTree.dao.MenuDaoI;
+import com.iTree.model.Menu;
+import com.iTree.pageModel.MenuPage;
 import com.iTree.service.MenuServiceI;
 
 @Service("menuService")
+/**
+ * 
+ * @author guanjiwei
+ *menu表存在问题，需要更正
+ */
 public class MenuServiceImpl implements MenuServiceI {
 
-	private TmenuDaoI tmenuDao;
+	private MenuDaoI MenuDao;
 
-	public TmenuDaoI getTmenuDao() {
-		return tmenuDao;
+	public MenuDaoI getMenuDao() {
+		return MenuDao;
 	}
 
 	@Autowired
-	public void setTmenuDao(TmenuDaoI tmenuDao) {
-		this.tmenuDao = tmenuDao;
+	public void setMenuDao(MenuDaoI MenuDao) {
+		this.MenuDao = MenuDao;
 	}
 	
 	@Override
-	public List<Menu> getTree(){
-		List<Menu> menul = new ArrayList<Menu>(); 
-		List<Tmenu> l = tmenuDao.find("from Tmenu t where id='root'");
+	public List<MenuPage> getTree(){
+		List<MenuPage> menul = new ArrayList<MenuPage>(); 
+		List<Menu> l = MenuDao.find("from Menu t where id='root'");
 		if(l!=null && l.size()>0){
-			for(Tmenu T:l){
-				Menu menu = new Menu();
+			for(Menu T:l){
+				MenuPage menu = new MenuPage();
 				BeanUtils.copyProperties(T, menu);
-				if(T.getTmenus()!=null && !T.getTmenus().isEmpty()){
+				/*if(T.getMenus()!=null && !T.getMenus().isEmpty()){
 					menu.setState("closed");//设置为文件夹
 				}else{
 					menu.setState("closed");//设置问文件
-				}
+				}*/
 				
 				menul.add(menu);
 			}

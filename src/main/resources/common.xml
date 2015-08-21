@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.multipart.saveDir" value="E:\\temp"></constant>
+	<constant name="struts.multipart.maxSize" value="9999999999999999"></constant>
+	<!-- dynamicMethodInvocation 动态方法调用 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+    <!-- devMode开发模式 -->
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.action.extension" value="action,do,webwork," />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+    <package name="default" namespace="/" extends="struts-default" >
+    	<interceptors>
+	       	<interceptor-stack name="defaultStack">
+	        	<interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>
+                <!--  -->
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <!--  -->
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="modelDriven">
+                	<param name="refreshModelBeforeResult">true</param>
+                </interceptor-ref>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <!--  -->
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <!--  -->
+                <interceptor-ref name="conversionError"/>
+                <!--  -->
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <!--  -->
+            </interceptor-stack>
+            
+	        <!-- 登录拦截器 -->   
+            <interceptor name="loginInterceptor" class="com.iTree.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="needLogin">
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+			
+        </interceptors>
+           
+           <!-- 默认使用的拦截器 -->
+           <default-interceptor-ref name="needLogin"></default-interceptor-ref>
+           <global-results>
+				<result name="login" type="redirect">/backend/login.jsp</result>
+			</global-results>
+    </package>
+    
+
+
+</struts>

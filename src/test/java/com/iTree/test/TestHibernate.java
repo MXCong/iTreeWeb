@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.iTree.model.Users;
 import com.iTree.service.UserServiceI;
 
 public class TestHibernate {
